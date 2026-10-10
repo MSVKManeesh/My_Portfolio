@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MSVK Maneesh | Aspiring SOC Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12203A; --paper:#F4F7FB; --card:#FFFFFF; --line:#D9E1EC; --muted:#55627A;
+  --steel:#2F5D9E; --steel-soft:#E3ECF8; --amber:#C77A0A; --amber-soft:#FDF0DA;
+  --teal:#1B7F70; --teal-soft:#DDF2EE; --red:#C0392B; --red-soft:#FBE4E1;
+  --panel:#12203A; --panel-text:#E6ECF7; --panel-dim:#8FA2C2;
+  --font-head:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --font-body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --r-lg:20px; --r-md:12px; --r-sm:8px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#E8EEF8; --paper:#0E1626; --card:#162238; --line:#26344F; --muted:#9AAAC4;
+    --steel:#7FA8E6; --steel-soft:#1D2D4A; --amber:#F0B25A; --amber-soft:#3A2C14;
+    --teal:#5CCDB8; --teal-soft:#14352F; --red:#F08A7E; --red-soft:#3C1E1B;
+    --panel:#0A1120; --panel-text:#E6ECF7; --panel-dim:#7F93B6;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#E8EEF8; --paper:#0E1626; --card:#162238; --line:#26344F; --muted:#9AAAC4;
+  --steel:#7FA8E6; --steel-soft:#1D2D4A; --amber:#F0B25A; --amber-soft:#3A2C14;
+  --teal:#5CCDB8; --teal-soft:#14352F; --red:#F08A7E; --red-soft:#3C1E1B;
+  --panel:#0A1120; --panel-text:#E6ECF7; --panel-dim:#7F93B6;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--steel);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--font-head);line-height:1.1;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:800}
+h3{font-size:1.25rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+section{padding:clamp(64px,9vw,112px) 0}
+.sec-head{max-width:620px;margin-bottom:44px}
+.sec-head p{color:var(--muted);margin-top:14px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;font:600 .98rem var(--font-body);text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{box-shadow:0 10px 24px -10px var(--ink)}
+.btn-ghost{border-color:var(--line);background:var(--card);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--steel)}
+.btn-wa{background:#1FA855;color:#fff}
+.btn-wa:hover{box-shadow:0 10px 24px -10px #1FA855}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{font:800 1.25rem var(--font-head);text-decoration:none;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.brand i{width:30px;height:30px;border-radius:9px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font:700 .8rem var(--font-mono);font-style:normal}
+.links{display:flex;gap:4px;align-items:center}
+.links a{padding:8px 13px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.95rem;color:var(--muted);transition:background .2s,color .2s}
+.links a:hover{color:var(--ink);background:var(--steel-soft)}
+.links a.active{color:var(--ink);background:var(--steel-soft)}
+.tools{display:flex;gap:8px;align-items:center}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.icon-btn svg{width:20px;height:20px}
+.menu-btn{display:none}
+@media (max-width:900px){
+  .menu-btn{display:grid}
+  .links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;padding:12px 20px 20px;background:var(--paper);border-bottom:1px solid var(--line);display:none}
+  .links.open{display:flex}
+  .links a{padding:12px 14px;font-size:1.05rem}
+}
+
+/* Hero */
+.hero{padding-top:calc(68px + clamp(40px,7vw,88px));padding-bottom:clamp(56px,8vw,96px);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.45;mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000,transparent);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000,transparent);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,64px);align-items:center}
+.status{display:inline-flex;align-items:center;gap:10px;padding:7px 14px;border-radius:999px;background:var(--teal-soft);color:var(--teal);font-weight:600;font-size:.9rem}
+.status b{width:9px;height:9px;border-radius:50%;background:var(--teal);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--teal) 60%,transparent)}100%{box-shadow:0 0 0 10px transparent}}
+.hero h1{font-size:clamp(2.7rem,7vw,5.2rem);font-weight:800;margin:22px 0 16px}
+.hero h1 span{display:block;color:var(--steel)}
+.role{font:500 1.15rem var(--font-body);color:var(--muted);min-height:1.9em}
+.role strong{color:var(--ink);font-weight:600}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--steel);margin-left:3px;vertical-align:-.2em;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero p.lead{max-width:50ch;margin:18px 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+
+/* SIEM panel (the memorable element) */
+.siem{background:var(--panel);color:var(--panel-text);border-radius:var(--r-lg);box-shadow:0 30px 60px -30px rgba(10,20,40,.55);overflow:hidden;border:1px solid color-mix(in srgb,var(--panel-dim) 25%,transparent)}
+.siem-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid color-mix(in srgb,var(--panel-dim) 25%,transparent);font:500 .8rem var(--font-mono);color:var(--panel-dim)}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:color-mix(in srgb,var(--panel-dim) 55%,transparent)}
+.siem-body{padding:8px 0;height:330px;overflow:hidden;position:relative}
+.alert{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 18px;border-bottom:1px solid color-mix(in srgb,var(--panel-dim) 18%,transparent);font:400 .82rem var(--font-mono)}
+.alert.new{animation:slideIn .6s cubic-bezier(.2,.8,.2,1)}
+@keyframes slideIn{from{opacity:0;transform:translateY(-18px);background:color-mix(in srgb,var(--steel) 30%,transparent)}to{opacity:1;transform:none}}
+.sev{padding:3px 9px;border-radius:6px;font-weight:500;font-size:.72rem}
+.sev.high{background:var(--red-soft);color:var(--red)}
+.sev.med{background:var(--amber-soft);color:var(--amber)}
+.sev.low{background:var(--teal-soft);color:var(--teal)}
+.alert .msg{min-width:0}
+.alert .msg b{display:block;font-weight:500;color:var(--panel-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.alert .msg small{color:var(--panel-dim);font-size:.74rem}
+.verdict{font-size:.74rem;color:var(--panel-dim);white-space:nowrap}
+.verdict.ok{color:#6FE0B6}
+.siem-foot{padding:12px 18px;font:400 .76rem var(--font-mono);color:var(--panel-dim);border-top:1px solid color-mix(in srgb,var(--panel-dim) 25%,transparent);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.siem-body{height:300px}}
+
+/* Cards generic */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-4px);border-color:var(--steel);box-shadow:0 18px 36px -24px var(--steel)}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:340px 1fr;gap:clamp(32px,5vw,64px);align-items:start}
+.photo-box{position:relative;width:100%;aspect-ratio:4/5;border-radius:var(--r-lg);background:linear-gradient(160deg,var(--steel-soft),var(--card));border:1px solid var(--line);overflow:hidden;display:grid;place-items:center}
+.photo-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:none}
+.photo-box.has img{display:block}
+.mono{font:700 5.5rem var(--font-head);color:var(--steel);letter-spacing:-.04em}
+.photo-box.has .mono,.photo-box.has .photo-hint{display:none}
+.photo-hint{position:absolute;bottom:14px;left:14px;right:14px;text-align:center}
+.photo-hint label{display:inline-block;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.85rem;font-weight:500;cursor:pointer}
+.photo-hint input{position:absolute;opacity:0;width:1px;height:1px}
+.photo-hint input:focus-visible + span{outline:3px solid var(--steel);outline-offset:3px}
+.about-text p{color:var(--muted);margin-bottom:16px;max-width:62ch}
+.about-text p:first-child{color:var(--ink);font-size:1.25rem;line-height:1.5;font-weight:500}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
+.fact{padding:16px 18px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--line)}
+.fact small{display:block;color:var(--muted);font-size:.82rem}
+.fact b{font-weight:600}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}.photo-box{max-width:320px}}
+@media (max-width:480px){.facts{grid-template-columns:1fr}}
+
+/* Skills */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.skill .ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--steel-soft);color:var(--steel);margin-bottom:18px}
+.skill .ico svg{width:24px;height:24px}
+.skill p{color:var(--muted);font-size:.95rem;margin:8px 0 18px}
+.meter{display:flex;gap:6px;align-items:center;font-size:.82rem;color:var(--muted)}
+.meter i{width:26px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;position:relative}
+.meter i.on::after{content:"";position:absolute;inset:0;background:var(--steel);transform:scaleX(0);transform-origin:left;transition:transform .8s ease .2s}
+.in .meter i.on::after,.meter.in i.on::after{transform:scaleX(1)}
+.meter span{margin-left:6px}
+
+/* Education timeline */
+.timeline{position:relative;padding-left:34px;max-width:760px}
+.timeline::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-item::before{content:"";position:absolute;left:-34px;top:26px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:4px solid var(--steel)}
+.tl-item .when{display:inline-block;font:500 .85rem var(--font-mono);color:var(--steel);margin-bottom:6px}
+.tl-item p{color:var(--muted);margin-top:8px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tag{padding:5px 12px;border-radius:999px;background:var(--steel-soft);color:var(--steel);font-size:.84rem;font-weight:500}
+
+/* Projects */
+.proj-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px}
+.proj-main{display:flex;flex-direction:column}
+.badge{align-self:flex-start;padding:5px 12px;border-radius:999px;background:var(--amber-soft);color:var(--amber);font-weight:600;font-size:.82rem;margin-bottom:16px}
+.proj-main p{color:var(--muted);margin:12px 0 20px}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 22px}
+.flow div{padding:12px 10px;border-radius:var(--r-md);background:var(--paper);border:1px solid var(--line);text-align:center;font-size:.82rem;font-weight:500;position:relative}
+.flow div b{display:block;font:500 .72rem var(--font-mono);color:var(--steel);margin-bottom:2px}
+.proj-main .tags{margin-top:auto}
+.proj-side{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;border-style:dashed;background:transparent}
+.proj-side p{color:var(--muted);margin:10px 0 20px}
+@media (max-width:860px){.proj-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.flow{grid-template-columns:1fr 1fr}}
+
+/* Certifications */
+.cert{display:flex;gap:20px;align-items:center;max-width:620px}
+.seal{flex:none;width:72px;height:72px;border-radius:50%;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center}
+.seal svg{width:34px;height:34px}
+.cert p{color:var(--muted);font-size:.95rem;margin-top:4px}
+
+/* Resume */
+.resume-wrap{display:grid;grid-template-columns:1fr 280px;gap:28px;align-items:start}
+.sheet{display:grid;grid-template-columns:240px 1fr;background:#fff;color:#1B2733;border-radius:var(--r-md);border:1px solid var(--line);overflow:hidden;box-shadow:0 24px 50px -34px rgba(10,20,40,.5);font-size:.93rem;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet .rs{background:#0F3B47;color:#E4F0F2;padding:32px 24px;display:flex;flex-direction:column;gap:22px}
+.sheet .rs img{width:128px;height:128px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:4px solid #E3B04B;align-self:center}
+.sheet .rs h5{margin:0 0 8px;font:700 .8rem var(--font-head);letter-spacing:.14em;text-transform:uppercase;color:#E3B04B;padding-bottom:6px;border-bottom:1px solid rgba(227,176,75,.4)}
+.sheet .rs ul{list-style:none;margin:0;padding:0}
+.sheet .rs li{margin-bottom:6px;font-size:.88rem;word-break:break-word}
+.sheet .rs small{display:block;color:#9FC3CA;font-size:.74rem}
+.sheet .rm{padding:34px 34px 30px}
+.sheet .rm h3{font:800 2rem var(--font-head);color:#0F3B47;letter-spacing:-.02em}
+.sheet .role-line{font:600 1rem var(--font-body);color:#0E7C86;margin:2px 0 4px}
+.sheet .rm h4{margin:22px 0 8px;font:700 .85rem var(--font-head);letter-spacing:.14em;text-transform:uppercase;color:#0F3B47;display:flex;align-items:center;gap:12px}
+.sheet .rm h4::after{content:"";flex:1;height:2px;background:#E3B04B;opacity:.7}
+.sheet .rm p{margin:0;color:#3A4856}
+.sheet .rm ul{margin:6px 0 0;padding-left:18px;color:#3A4856}
+.sheet .rm li{margin-bottom:3px}
+.sheet .rm b{color:#1B2733}
+.sheet .rm .row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sheet .rm .row span{color:#0E7C86;font-weight:600;font-size:.88rem}
+@media (max-width:640px){.sheet{grid-template-columns:1fr}.sheet .rm{padding:26px 22px}}
+.side-note{position:sticky;top:96px}
+.side-note p{color:var(--muted);font-size:.95rem;margin:10px 0 18px}
+@media (max-width:900px){.resume-wrap{grid-template-columns:1fr}.side-note{position:static;order:-1}}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.c-card{display:flex;flex-direction:column;gap:6px;text-decoration:none}
+.c-card .ico{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;margin-bottom:14px}
+.c-card .ico svg{width:26px;height:26px}
+.c-card small{color:var(--muted);font-size:.85rem}
+.c-card b{font:600 1.15rem var(--font-body);word-break:break-word}
+.ico.g{background:var(--teal-soft);color:var(--teal)}
+.ico.b{background:var(--steel-soft);color:var(--steel)}
+.ico.a{background:var(--amber-soft);color:var(--amber)}
+footer{padding:32px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .meter i.on::after{transform:scaleX(1)}
+}
+
+/* Print: resume only */
+@page{size:A4;margin:0}
+@media print{
+  body *{visibility:hidden}
+  #sheet,#sheet *{visibility:visible}
+  #sheet{position:absolute;left:0;top:0;width:100%;border:0;box-shadow:none;padding:0}
+  :root{padding:0}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#home" aria-label="MSVK Maneesh, home"><i>MM</i>Maneesh</a>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="icon-btn" id="theme" aria-label="Switch light or dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HOME -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="status"><b></b>Open to entry-level SOC roles</span>
+      <h1>MSVK Maneesh<span>Aspiring SOC Analyst</span></h1>
+      <div class="role" aria-live="off">I work on <strong id="typed"></strong><i class="caret"></i></div>
+      <p class="lead">B.Sc. Computer Science student from Visakhapatnam. I learn by building: I analyse phishing emails, read SIEM alerts and write Python to speed up the boring parts.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn btn-ghost" href="#resume">See resume</a>
+        <a class="btn btn-wa" href="https://wa.me/919346193981" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.300 0 .5l-.3.400-.4.400c-.1.100-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.200 1 2.100 1.300 2.400 1.500.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.400z"/></svg>
+          WhatsApp me
+        </a>
+      </div>
+    </div>
+
+    <div class="siem" role="img" aria-label="Animated example of a SIEM alert queue being triaged">
+      <div class="siem-top"><div class="dots"><i></i><i></i><i></i></div><span>alert-queue / triage</span><span id="clock">--:--:--</span></div>
+      <div class="siem-body" id="feed"></div>
+      <div class="siem-foot"><span>Practice queue, sample data</span><span id="count">alerts triaged: 0</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>About me</h2></div>
+    <div class="about-grid">
+      <div class="rv">
+        <div class="photo-box has" id="photoBox">
+          <span class="mono" aria-hidden="true">MM</span>
+          <img id="photoImg" alt="Portrait of MSVK Maneesh in a grey suit and maroon tie" src="Maneeesh.png"><label><input type="file" id="photoIn" accept="image/*"><span>Add your photo</span></label></div>
+        </div>
+      </div>
+      <div class="about-text rv">
+        <p>I'm a Computer Science graduate who wants to start a career as a SOC Analyst, watching for threats and helping teams respond quickly.</p>
+        <p>I like understanding how an attack actually happens: a phishing email lands, a login looks odd, a log line doesn't fit. My projects focus on those moments, and I'm learning to read alerts in a SIEM and decide what matters.</p>
+        <p>I'm a quick learner, I document what I build, and I'm ready to learn on the job from a real security team.</p>
+        <div class="facts">
+          <div class="fact"><small>Degree</small><b>B.Sc. Computer Science</b></div>
+          <div class="fact"><small>Location</small><b>Hyderabad, India</b></div>
+          <div class="fact"><small>Career goal</small><b>SOC Analyst (L1)</b></div>
+          <div class="fact"><small>Languages</small><b>English, Hindi, Telugu</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>Skills</h2><p>What I use today, and how comfortable I am with it.</p></div>
+    <div class="skill-grid">
+      <article class="card skill rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg></div>
+        <h3>Python</h3><p>Scripts for parsing text, checking links and automating small analysis tasks.</p>
+        <div class="meter" data-l="3"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><span>Working</span></div>
+      </article>
+      <article class="card skill rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.400 8 8 9 4.600-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Cybersecurity</h3><p>Phishing analysis, threat basics, CIA triad, common attack types and incident handling steps.</p>
+        <div class="meter" data-l="3"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><span>Working</span></div>
+      </article>
+      <article class="card skill rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 14l3-3 3 2 4-5M8 21h8"/></svg></div>
+        <h3>SIEM</h3><p>Reading alerts and logs, spotting suspicious patterns and deciding what to escalate.</p>
+        <div class="meter" data-l="2"><i class="on"></i><i class="on"></i><i></i><i></i><span>Learning</span></div>
+      </article>
+      <article class="card skill rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16l-1.500 17L12 22l-6.500-2z"/><path d="M8 8h8l-.5 5-3.500 1.500L8.500 13"/></svg></div>
+        <h3>HTML and CSS</h3><p>Building clean, responsive pages, including this portfolio.</p>
+        <div class="meter" data-l="3"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><span>Working</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>Education</h2></div>
+    <div class="timeline">
+      <article class="card tl-item rv">
+        <span class="when">Bachelor's degree</span>
+        <h3>B.Sc. Computer Science</h3>
+        <p>Aditya Degree College, Visakhapatnam</p>
+        <div class="tags"><span class="tag">Programming</span><span class="tag">Networks</span><span class="tag">Databases</span><span class="tag">Operating systems</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>Projects</h2><p>Hands-on work that shows how I think about security.</p></div>
+    <div class="proj-grid">
+      <article class="card proj-main rv">
+        <span class="badge">Featured project</span>
+        <h3>AI Phishing Analysis</h3>
+        <p>A tool that examines suspicious emails and flags the signs of phishing, such as mismatched sender domains, urgent wording and risky links, then gives a clear verdict an analyst can act on.</p>
+        <div class="flow" aria-label="How the analysis works">
+          <div><b>1</b>Read email</div><div><b>2</b>Extract links and headers</div><div><b>3</b>Score with AI</div><div><b>4</b>Verdict</div>
+        </div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">AI</span><span class="tag">Phishing</span><span class="tag">Email analysis</span></div>
+      </article>
+      <article class="card proj-side rv">
+        <h3>More on the way</h3>
+        <p>I'm adding SIEM lab write-ups and log analysis exercises next.</p>
+        <a class="btn btn-ghost" href="https://github.com/MSVKManeesh" target="_blank" rel="noopener">See GitHub</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>Certifications</h2></div>
+    <article class="card cert rv">
+      <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="m8.500 14-1.500 8 5-3 5 3-1.500-8"/></svg></div>
+      <div><h3>Introduction to Cybersecurity</h3><p>Covers core security concepts, threats and how organisations defend against them.</p></div>
+    </article>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume" style="background:var(--card);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>Resume</h2></div>
+    <div class="resume-wrap">
+      <div class="sheet rv" id="sheet">
+        <div class="rs">
+          <img id="resPhoto" alt="MSVK Maneesh">
+          <div>
+            <h5>Contact</h5>
+            <ul>
+              <li><small>WhatsApp / Phone</small>+91 93461 93981</li>
+              <li><small>Location</small>Hyderabad, India</li>
+              <li><small>GitHub</small>github.com/MSVKManeesh</li>
+            </ul>
+          </div>
+          <div>
+            <h5>Skills</h5>
+            <ul><li>Python</li><li>Cybersecurity fundamentals</li><li>Phishing analysis</li><li>SIEM alert and log reading</li><li>HTML and CSS</li></ul>
+          </div>
+          <div>
+            <h5>Languages</h5>
+            <ul><li>English</li><li>Hindi</li><li>Telugu</li></ul>
+          </div>
+        </div>
+        <div class="rm">
+          <h3>MSVK Maneesh</h3>
+          <div class="role-line">Aspiring SOC Analyst</div>
+          <h4>Profile</h4>
+          <p>B.Sc. Computer Science graduate seeking an entry-level SOC Analyst role. Hands-on with phishing analysis, Python scripting and SIEM alert triage, and eager to learn from a security operations team.</p>
+          <h4>Education</h4>
+          <div class="row"><b>B.Sc. Computer Science</b></div>
+          <div>Aditya Degree College, Visakhapatnam</div>
+          <h4>Projects</h4>
+          <div class="row"><b>AI Phishing Analysis</b><span>Python, AI</span></div>
+          <ul><li>Analyses suspicious emails and flags phishing indicators such as spoofed domains, urgent wording and risky links.</li><li>Produces a clear verdict that an analyst can act on.</li></ul>
+          <h4>Certifications</h4>
+          <ul><li>Introduction to Cybersecurity</li></ul>
+        </div>
+      </div>
+      <aside class="card side-note rv">
+        <h3>Get my resume</h3>
+        <p>Opens your print dialog. Choose "Save as PDF" to download a one-page copy.</p>
+        <button class="btn btn-primary" id="print" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 21h16"/></svg>
+          Download resume
+        </button>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>Contact</h2><p>The quickest way to reach me is WhatsApp.</p></div>
+    <div class="contact-grid">
+      <a class="card c-card rv" href="https://wa.me/919346193981" target="_blank" rel="noopener">
+        <div class="ico g"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.600 15.100L2 22l5-1.300A10 10 0 1 0 12 2zm5.200 14.200c-.2.600-1.300 1.200-1.800 1.200-.5.100-1 .2-3.300-.7-2.800-1.200-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 1-2.300c.2-.3.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.8 2c.1.200.1.300 0 .5l-.3.400-.4.400c-.1.100-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.200 1 2.100 1.300 2.400 1.500.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.400z"/></svg></div>
+        <small>WhatsApp</small><b>+91 93461 93981</b>
+      </a>
+      <a class="card c-card rv" href="tel:+919346193981">
+        <div class="ico b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.900v3a2 2 0 0 1-2.200 2 19.800 19.800 0 0 1-8.600-3.100 19.500 19.500 0 0 1-6-6A19.800 19.800 0 0 1 2.100 4.200 2 2 0 0 1 4.100 2h3a2 2 0 0 1 2 1.700c.1 1 .4 1.900.7 2.800a2 2 0 0 1-.5 2.100L8.100 9.900a16 16 0 0 0 6 6l1.300-1.300a2 2 0 0 1 2.100-.4c.9.300 1.800.6 2.800.7a2 2 0 0 1 1.700 2z"/></svg></div>
+        <small>Phone</small><b>+91 93461 93981</b>
+      </a>
+      <div class="card c-card rv">
+        <div class="ico a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.500 7-12a7 7 0 0 0-14 0c0 5.500 7 12 7 12z"/><circle cx="12" cy="10" r="2.500"/></svg></div>
+        <small>Location</small><b>Hyderabad, India</b>
+      </div>
+      <a class="card c-card rv" href="https://github.com/MSVKManeesh" target="_blank" rel="noopener">
+        <div class="ico b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.300 1.400-4.300-2.500-6-3m12 5v-3.500c0-1 .1-1.400-.5-2 2.800-.3 5.500-1.400 5.500-6a4.600 4.600 0 0 0-1.300-3.200 4.200 4.200 0 0 0-.1-3.200s-1.100-.3-3.500 1.300a12 12 0 0 0-6.200 0C6.500 2.800 5.400 3.100 5.400 3.100a4.200 4.200 0 0 0-.1 3.200A4.600 4.600 0 0 0 4 9.500c0 4.600 2.700 5.700 5.500 6-.6.600-.6 1.200-.5 2V21"/></svg></div>
+        <small>GitHub</small><b>github.com/MSVKManeesh</b>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>&copy; <span id="yr"></span> MSVK Maneesh</span><span>Aspiring SOC Analyst</span></div></footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Mobile menu */
+  var menu = document.getElementById('menu'), links = document.getElementById('links');
+  menu.addEventListener('click', function(){
+    var o = links.classList.toggle('open'); menu.setAttribute('aria-expanded', o);
+  });
+  links.addEventListener('click', function(e){ if(e.target.tagName==='A'){ links.classList.remove('open'); menu.setAttribute('aria-expanded', false);} });
+
+  /* Theme toggle */
+  document.getElementById('theme').addEventListener('click', function(){
+    var root = document.documentElement;
+    var dark = root.getAttribute('data-theme') === 'dark' ||
+      (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* Typed role line */
+  var words = ['phishing analysis','SIEM alert triage','Python automation','log investigation'];
+  var t = document.getElementById('typed');
+  if(reduce){ t.textContent = words[0]; }
+  else {
+    var w=0, c=0, del=false;
+    (function tick(){
+      var cur = words[w];
+      t.textContent = cur.slice(0,c);
+      if(!del && c===cur.length){ del=true; return setTimeout(tick,1600); }
+      if(del && c===0){ del=false; w=(w+1)%words.length; }
+      c += del ? -1 : 1;
+      setTimeout(tick, del?35:70);
+    })();
+  }
+
+  /* SIEM feed */
+  var feed = document.getElementById('feed'), count = document.getElementById('count'), clock = document.getElementById('clock');
+  var data = [
+    ['high','Phishing link clicked','user: j.rao | mail-gateway','Escalated'],
+    ['med','Multiple failed logins','host: vpn-02 | 14 attempts','Investigating'],
+    ['low','New device sign-in','user: s.devi | known region','Closed: benign'],
+    ['high','Suspicious attachment .xlsm','src: mail-gateway','Escalated'],
+    ['med','Unusual outbound traffic','host: ws-118 | port 4444','Investigating'],
+    ['low','Password changed','user: a.khan | MFA passed','Closed: benign'],
+    ['high','Sender domain spoof','paypa1-support.com','Blocked'],
+    ['low','Scheduled scan completed','host: srv-03','Closed: benign']
+  ];
+  var i=0, triaged=0;
+  function pad(n){return (n<10?'0':'')+n}
+  function now(){var d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())}
+  function row(d, fresh){
+    var el = document.createElement('div');
+    el.className = 'alert'+(fresh?' new':'');
+    var ok = d[3].indexOf('Closed')===0 || d[3]==='Blocked';
+    el.innerHTML = '<span class="sev '+d[0]+'">'+({high:'HIGH',med:'MED',low:'LOW'})[d[0]]+'</span>'+
+      '<span class="msg"><b></b><small></small></span><span class="verdict'+(ok?' ok':'')+'"></span>';
+    el.querySelector('b').textContent = d[1];
+    el.querySelector('small').textContent = d[2];
+    el.querySelector('.verdict').textContent = d[3];
+    return el;
+  }
+  for(i=0;i<5;i++){ feed.appendChild(row(data[i],false)); }
+  triaged = 5; count.textContent = 'alerts triaged: '+triaged;
+  if(!reduce){
+    setInterval(function(){
+      var d = data[i % data.length]; i++; triaged++;
+      feed.insertBefore(row(d,true), feed.firstChild);
+      while(feed.children.length>6){ feed.removeChild(feed.lastChild); }
+      count.textContent = 'alerts triaged: '+triaged;
+    }, 2400);
+  }
+  clock.textContent = now();
+  setInterval(function(){ clock.textContent = now(); }, 1000);
+
+  /* Reveal on scroll + skill meters */
+  var items = document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); var m=e.target.querySelector('.meter'); if(m) m.classList.add('in'); io.unobserve(e.target);} });
+    },{threshold:.15});
+    items.forEach(function(el,k){ el.style.transitionDelay = (k%4)*70+'ms'; io.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('in'); var m=el.querySelector('.meter'); if(m) m.classList.add('in'); });
+  }
+
+  /* Active nav link */
+  var secs = document.querySelectorAll('main section'), navs = document.querySelectorAll('.links a');
+  if('IntersectionObserver' in window){
+    var so = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          navs.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id); });
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(function(s){ so.observe(s); });
+  }
+
+  /* Profile photo preview (stays in the browser) */
+  var pin = document.getElementById('photoIn');
+  pin.addEventListener('change', function(){
+    var f = pin.files && pin.files[0]; if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){
+      document.getElementById('photoImg').src = r.result;
+      document.getElementById('photoBox').classList.add('has');
+    };
+    r.readAsDataURL(f);
+  });
+
+  /* Resume photo */
+  var rp=document.getElementById('resPhoto'), ap=document.getElementById('photoImg');
+  function syncPhoto(){ if(ap.src) rp.src=ap.src; }
+  syncPhoto(); ap.addEventListener('load',syncPhoto);
+
+  /* Resume print */
+  document.getElementById('print').addEventListener('click', function(){ window.print(); });
+})();
+</script>
+</body>
+</html>
